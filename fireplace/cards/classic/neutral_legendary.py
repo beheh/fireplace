@@ -193,3 +193,7 @@ class PRO_001b:
 # Power of the Horde
 class PRO_001c:
 	play = Summon(CONTROLLER, RandomEntourage())
+
+# Onyxia
+class EX1_562:
+	play = Summon(CONTROLLER, "ds1_whelptoken") * 6
