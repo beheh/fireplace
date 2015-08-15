@@ -341,6 +341,20 @@ def test_deathrattle():
 	assert len(game.current_player.field) == 1
 
 
+def test_secret_exhaustion():
+	game = prepare_empty_game()
+	duplicate = game.player1.summon("FP1_018")
+	assert duplicate.exhausted
+	assert len(game.player1.hand) == 0
+	game.player1.summon(WISP).destroy()
+	assert not duplicate.dead
+	game.end_turn()
+
+	assert not duplicate.exhausted
+	game.player1.summon(WISP).destroy()
+	assert duplicate.dead
+
+
 def test_chromaggus():
 	game = prepare_game()
 	chromaggus = game.player1.give("BRM_031")
