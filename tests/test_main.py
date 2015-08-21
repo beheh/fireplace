@@ -2145,6 +2145,19 @@ def test_hunters_mark():
 	assert token.health == 3
 
 
+def test_keeper_of_the_grove():
+	game = prepare_game()
+	keeper1 = game.player1.give("EX1_166")
+	wisp = game.player1.summon(WISP)
+	assert game.player2.hero.health == 30
+	keeper1.play(choose="EX1_166a", target=game.player2.hero)
+	assert game.player2.hero.health == 28
+	game.end_turn(); game.end_turn()
+
+	keeper1 = game.player1.give("EX1_166")
+	keeper1.play(choose="EX1_166b", target=game.player2.hero)
+
+
 def test_kezan_mystic():
 	game = prepare_game()
 	kezan = game.player1.give("GVG_074")
