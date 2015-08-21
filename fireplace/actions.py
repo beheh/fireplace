@@ -216,6 +216,8 @@ class Play(GameAction):
 			chosen.controller = player
 			logging.info("Choose One from %r: %r", card, chosen)
 			if chosen.has_target():
+				assert target in chosen.targets
+				assert target is not card
 				chosen.target = target
 			card.chosen = chosen
 		card.choose = choose
