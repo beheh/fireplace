@@ -574,33 +574,27 @@ def test_spell_power():
 	assert game.player2.hero.health == expected_health
 
 
-def test_stealth_windfury():
+def test_stealth():
 	game = prepare_game(MAGE, MAGE)
-	worgen = game.current_player.give("EX1_010")
+	worgen = game.player1.give("EX1_010")
 	worgen.play()
 	assert worgen.stealthed
-	assert not worgen.can_attack()
 	game.end_turn(); game.end_turn()
 	game.end_turn()
 
-	archer = game.current_player.give("CS2_189")
-	assert len(archer.targets) == 2  # Only the heroes
-	assert len(game.current_player.hero.power.targets) == 2
+	archer1 = game.player2.give("CS2_189")
+	assert len(archer1.targets) == 2  # Only the heroes
+	assert len(game.player2.hero.power.targets) == 2
 	game.end_turn()
 
-	worgen.attack(game.current_player.opponent.hero)
+	archer2 = game.player1.give("CS2_189")
+	assert worgen.stealthed
+	assert len(archer1.targets) == 2
+	assert len(archer2.targets) == 3
+	worgen.attack(game.player2.hero)
 	assert not worgen.stealthed
-	assert not worgen.can_attack()
-	windfury = game.current_player.give("CS2_039")
-	windfury.play(target=worgen)
-	assert worgen.windfury
-	assert worgen.num_attacks == 1
-	assert worgen.can_attack()
-	worgen.attack(game.current_player.opponent.hero)
-	assert not worgen.can_attack()
-	game.end_turn()
-
-	assert len(archer.targets) == 3
+	assert len(archer1.targets) == 3
+	assert len(archer2.targets) == 3
 
 
 def test_stealth_taunt():
@@ -662,3 +656,21 @@ def test_taunt():
 	game.end_turn()
 
 	assert wisp2.targets == [goldshire1]
+
+
+def test_windfury():
+	game = prepare_game()
+	wisp = game.player1.give(WISP)
+	wisp.play()
+	game.end_turn(); game.end_turn()
+
+	windfury = game.player1.give("CS2_039")
+	windfury.play(target=wisp)
+	wisp.attack(target=game.player2.hero)
+	assert wisp.windfury
+	assert wisp.num_attacks == 1
+	assert wisp.can_attack()
+	wisp.attack(target=game.player2.hero)
+	assert wisp.windfury
+	assert wisp.num_attacks == 2
+	assert not wisp.can_attack()
