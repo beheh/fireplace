@@ -184,6 +184,18 @@ def test_savagery():
 	assert watcher.health == 5 - 1 - 1
 
 
+def test_savagery_divine_shield():
+	game = prepare_game()
+	wisp = game.player1.give(WISP)
+	wisp.play()
+	game.player1.give(HAND_OF_PROTECTION).play(target=wisp)
+	assert wisp.divine_shield
+	assert game.player1.hero.atk == 0
+	savagery = game.player1.give("EX1_578")
+	savagery.play(target=wisp)
+	assert wisp.divine_shield
+
+
 def test_earth_shock():
 	game = prepare_game()
 	crusader = game.current_player.give("EX1_020")
