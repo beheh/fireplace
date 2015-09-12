@@ -1277,6 +1277,30 @@ def test_conceal():
 	assert not wisp2.stealthed
 
 
+def test_conceal_alarmobot():
+	game = prepare_empty_game()
+	alarmobot = game.player1.give("EX1_006")
+	alarmobot.play()
+	conceal = game.player1.give("EX1_128")
+	conceal.play()
+	game.player1.give(WISP)
+	game.end_turn(); game.end_turn()
+
+	assert alarmobot in game.player1.hand
+	assert wisp in game.player1.field
+
+
+def test_conceal_bounce():
+	game = prepare_empty_game()
+	wisp = game.player1.give(WISP)
+	wisp.play()
+	conceal = game.player1.give("EX1_128")
+	conceal.play()
+	brew = game.player1.give("EX1_049")
+	brew.play(target=wisp)
+	game.end_turn(); game.end_turn()
+
+
 def test_counterspell():
 	game = prepare_game()
 	counterspell = game.player1.give("EX1_287")
