@@ -2169,6 +2169,30 @@ def test_mirror_entity():
 	assert game.player1.field[0].id == WISP
 
 
+def test_mirror_entity_aura():
+	game = prepare_game()
+	game.end_turn()
+	game.player2.give("CS2_222").play() # Stormwind Champion
+	game.end_turn()
+
+	mirror = game.player1.give("EX1_294")
+	mirror.play()
+	game.end_turn()
+
+	# Mirror entity copies the exact nature of the card when it hits the field.
+	blademaster = game.player2.give("CS2_181")
+	blademaster.name = "Original Blademaster"
+	blademaster.play()
+	assert len(game.player1.field) == 1
+	assert len(game.player2.field) == 2
+	assert mirror not in game.player1.secrets
+	copy = game.player1.field.filter(id=blademaster.id)[0]
+	assert copy.health == 4
+	assert copy.max_health == 7
+	assert blademaster.health == 4
+	assert blademaster.max_health == 8
+
+
 def test_mirror_entity_battlecry():
 	game = prepare_game()
 	mirror = game.player1.give("EX1_294")
