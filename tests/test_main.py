@@ -5385,6 +5385,22 @@ def test_felguard():
 	assert game.player1.mana == 1
 
 
+def test_felguard_no_crystals():
+    game = prepare_game(game_class=Game)
+    for i in range(5):
+        game.current_player.give(THE_COIN).play()
+    assert game.player1.max_mana == 1
+    assert game.player1.mana == 6
+    felguard1 = game.player1.give("EX1_301")
+    felguard1.play()
+    felguard2 = game.player1.give("EX1_301")
+    felguard2.play()
+    assert game.player1.max_mana == 0
+    assert game.player1.mana == 0
+	game.end_turn(); game.end_turn()
+	assert game.player1.mana == 1
+
+
 def test_fencing_coach():
 	game = prepare_game(WARRIOR, WARRIOR)
 	coach = game.player1.give("AT_115")
