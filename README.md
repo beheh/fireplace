@@ -1,6 +1,6 @@
 ## Fireplace
-[![AGPLv3](https://www.gnu.org/graphics/agplv3-88x31.png)](http://choosealicense.com/licenses/agpl-3.0/)
-[![Build Status](https://travis-ci.org/jleclanche/fireplace.svg)](https://travis-ci.org/jleclanche/fireplace)
+[![Build Status](https://img.shields.io/travis/jleclanche/fireplace.svg)](https://travis-ci.org/jleclanche/fireplace)
+[![AGPLv3](https://img.shields.io/badge/license-AGPLv3-6e1b67.svg)](http://choosealicense.com/licenses/agpl-3.0/)
 
 A Hearthstone simulator and implementation, written in Python.
 
