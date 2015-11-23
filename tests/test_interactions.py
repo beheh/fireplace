@@ -21,3 +21,25 @@ def test_event_queue_heal():
 	vendor.play()
 	assert game.player1.hero.health == 30
 	assert game.player2.hero.health == 28
+
+
+def test_stormwind_champion_heal():
+    game = prepare_game()
+
+    goldshire = game.player1.summon(GOLDSHIRE_FOOTMAN)
+    assert goldshire.atk == 1
+    assert goldshire.health == 2
+    stormwind = game.player1.give("CS2_222")
+    stormwind.play()
+    assert goldshire.atk == 2
+    assert goldshire.health == 3
+
+    game.player1.give(MOONFIRE).play(target=goldshire)
+    assert goldshire.atk == 2
+    assert goldshire.health == 2
+    game.end_turn()
+
+    # Destroy with Fireball
+    game.player2.give("CS2_029").play(target=stormwind)
+    assert goldshire.atk == 1
+    assert goldshire.health == 2
