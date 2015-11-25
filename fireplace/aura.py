@@ -64,10 +64,18 @@ class TargetableByAuras:
 				slot.tick = source.game.tick
 				break
 		else:
-			logger.info("Aura from %r buffs %r with %r", source, self, id)
-			buff = source.buff(self, id)
-			buff.tick = source.game.tick
-			source.game.active_aura_buffs.append(buff)
+			found = False
+			for buff in self.buffs[:]:
+				if buff.id == id and buff.source is source:
+					found = True
+					logger.info("Aura from %r refreshes %r with buff %r", source, self, id)
+					buff.tick = source.game.tick
+					break
+			if not found:
+				logger.info("Aura from %r buffs %r with %r", source, self, id)
+				buff = source.buff(self, id)
+				buff.tick = source.game.tick
+				source.game.active_aura_buffs.append(buff)
 
 	def refresh_tags(self, source, tags):
 		for slot in self.slots[:]:
