@@ -729,6 +729,11 @@ class Enchantment(BaseCard):
 		self.log("Destroying buff %r from %r", self, self.owner)
 		if hasattr(self.data.scripts, "destroy"):
 			self.data.scripts.destroy(self)
+		if self.max_health > 0:
+			self.log("Reducing damage on %r by %r", self.owner, self.max_health)
+			old = self.owner.damage
+			self.owner.damage = self.owner.damage - self.max_health
+			self.log("Damage on %r went from %r to %r", self.owner, old, self.owner.damage)
 		self.zone = Zone.REMOVEDFROMGAME
 	_destroy = destroy
 
