@@ -1649,6 +1649,35 @@ def test_weapon_sheathing():
 	assert not axe.exhausted
 
 
+def test_arcane_blast():
+	game = prepare_game()
+	mogushan = game.player1.summon("EX1_396")
+	blast1 = game.player1.give("AT_004")
+	assert blast1.targets == [mogushan]
+
+	assert mogushan.health == 7
+	blast1.play(target=mogushan)
+	assert mogushan.health == 7 - 2
+	game.end_turn(); game.end_turn()
+
+	game.player1.give(KOBOLD_GEOMANCER).play()
+	mogushan.set_current_health(7)
+	blast2 = game.player1.give("AT_004")
+
+	assert mogushan.health == 7
+	blast2.play(target=mogushan)
+	assert mogushan.health == 7 - (2 + 1 * 2)
+	game.end_turn(); game.end_turn()
+
+	game.player1.give(KOBOLD_GEOMANCER).play()
+	mogushan.set_current_health(7)
+	blast3 = game.player1.give("AT_004")
+
+	assert mogushan.health == 7
+	blast3.play(target=mogushan)
+	assert mogushan.health == 7 - (2 + 2 * 2)
+
+
 def test_arcane_explosion():
 	game = prepare_game(MAGE, MAGE)
 	# play some wisps
