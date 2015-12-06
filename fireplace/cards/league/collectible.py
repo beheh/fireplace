@@ -9,6 +9,13 @@ class LOE_009:
 	events = OWN_TURN_END.on(Summon(CONTROLLER, "LOE_009t"))
 
 
+# Tunnel Trogg
+class LOE_018:
+	events = Overload(CONTROLLER).on(Buff(SELF, "LOE_018e") * Overload.AMOUNT)
+
+LOE_018e = buff(atk=1)
+
+
 # Sacred Trial
 class LOE_027:
 	events = Play(OPPONENT, MINION | HERO).after(

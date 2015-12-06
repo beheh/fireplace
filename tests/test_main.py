@@ -4345,6 +4345,20 @@ def test_totemic_might():
 	assert searing.health == 3
 
 
+def test_tunnel_trogg():
+	game = prepare_game()
+	trogg = game.player1.give("LOE_018")
+	dustdevil = game.player1.give("EX1_243")
+	dustdevil.play()
+	assert trogg.atk == 1
+	trogg.play()
+	assert trogg.atk == 1
+	dustdevil = game.player1.give("EX1_243")
+	assert dustdevil.overload == 2
+	dustdevil.play()
+	assert trogg.atk == 3
+
+
 def test_twilight_drake():
 	game = prepare_game()
 	game.end_turn(); game.end_turn()
