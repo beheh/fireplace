@@ -450,6 +450,26 @@ def test_hobgoblin():
 	# assert faceless.health == 1
 
 
+def test_implosion():
+	game = prepare_game()
+	mogushan = game.player1.give("EX1_396")
+	mogushan.play()
+	game.end_turn()
+
+	wisp = game.player2.give(WISP)
+	wisp.play()
+	implosion = game.player2.give("GVG_045")
+	assert len(implosion.targets) == 2
+	assert mogushan in implosion.targets
+	assert wisp in implosion.targets
+	wisp.destroy()
+	assert len(game.player2.field) == 0
+	implosion.play(target=mogushan)
+	assert 2 <= len(game.player2.field) <= 4
+	assert not mogushan.dead
+	assert mogushan.health == 7 - len(game.player2.field)
+
+
 def test_iron_juggernaut():
 	game = prepare_empty_game()
 	game.player2.discard_hand()

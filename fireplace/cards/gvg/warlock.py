@@ -53,3 +53,8 @@ class GVG_019:
 	play = Find(TARGET + FRIENDLY + DEMON) & Buff(TARGET, "GVG_019e") | Hit(TARGET, 5)
 
 GVG_019e = buff(+5, +5)
+
+
+# Imp-losion
+class GVG_045:
+	play = Hit(TARGET, RandomNumber(2, 3, 4)), Summon(CONTROLLER, "GVG_045t") * RandomNumber(2, 3, 4)
