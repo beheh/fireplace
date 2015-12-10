@@ -9,6 +9,11 @@ class LOE_009:
 	events = OWN_TURN_END.on(Summon(CONTROLLER, "LOE_009t"))
 
 
+# Eerie Statue
+class LOE_107:
+	update = Find(ALL_MINIONS - SELF) & Refresh(SELF, {GameTag.CANT_ATTACK: True})
+
+
 ##
 # Spells
 

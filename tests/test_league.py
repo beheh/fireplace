@@ -1,6 +1,19 @@
 from utils import *
 
 
+def test_eerie_statue():
+	game = prepare_game()
+	statue = game.player1.give("LOE_107")
+	statue.play()
+	game.end_turn(); game.end_turn()
+
+	assert not statue.cant_attack
+	wisp = game.player1.summon(WISP)
+	assert statue.cant_attack
+	wisp.destroy()
+	assert not statue.cant_attack
+
+
 def test_curse_of_rafaam():
 	game = prepare_game()
 	game.player2.discard_hand()
