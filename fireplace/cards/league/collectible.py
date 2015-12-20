@@ -24,6 +24,17 @@ class LOE_012:
 	deathrattle = Give(CONTROLLER, "GAME_005")
 
 
+# Unearthed Raptor
+class LOE_019:
+	def play(self):
+		self.buff(self, "LOE_019e", deathrattles=self.target.deathrattles)
+
+class LOE_019e:
+	deathrattle = lambda self: self.deathrattles
+	tags = {GameTag.DEATHRATTLE: True}
+
+
+
 # Desert Camel
 class LOE_020:
 	play = (

@@ -191,6 +191,19 @@ def test_tomb_pillager():
 	assert game.player1.hand[0].id == "GAME_005"
 
 
+def test_unearthed_raptor():
+	game = prepare_game()
+	game.player1.discard_hand()
+	hoarder = game.player1.give("EX1_096")
+	hoarder.play()
+	raptor = game.player1.give("LOE_019")
+	raptor.play(target=hoarder)
+	assert len(game.player1.hand) == 0
+	raptor.destroy()
+	assert raptor.has_deathrattle
+	assert len(game.player1.hand) == 1
+
+
 ##
 # Adventure tests
 
