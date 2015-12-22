@@ -49,6 +49,26 @@ def test_baron_rivendare():
 	assert len(game.player1.field) == 3  # Only one treant spawns
 
 
+def test_baron_rivendare_deathlord():
+	game = prepare_empty_game()
+	deathlord = game.player1.give("FP1_009")
+	deathlord.play()
+	game.player1.summon("FP1_031").shuffle_into_deck()
+	game.player1.summon("FP1_031").shuffle_into_deck()
+	deathlord.destroy()
+	assert len(game.player1.field) == len(game.player1.deck) == 1
+
+
+def test_baron_rivendare_sylvanas():
+	game = prepare_game()
+	sylvanas = game.player1.give("EX1_016")
+	sylvanas.play()
+	game.player2.summon("FP1_031")
+	game.player2.summon("FP1_031")
+	sylvanas.destroy()
+	assert len(game.player1.field) == len(game.player2.field) == 1
+
+
 def test_deaths_bite():
 	game = prepare_game()
 	deathsbite = game.player1.give("FP1_021")
