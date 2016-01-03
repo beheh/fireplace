@@ -2754,6 +2754,18 @@ def test_shield_slam():
 	assert wisp.dead
 
 
+def test_si7_agent():
+	game = prepare_game()
+	agent = game.player1.give("EX1_134")
+	assert not agent.has_target()
+	wisp = game.player1.give(WISP)
+	wisp.play()
+	assert agent.has_target()
+	game.end_turn(); game.end_turn()
+
+	assert not agent.has_target()
+
+
 def test_slam():
 	game = prepare_game()
 	wisp = game.player1.summon(WISP)
